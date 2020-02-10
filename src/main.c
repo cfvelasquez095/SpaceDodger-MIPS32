@@ -11,8 +11,7 @@ int main() {
     keypad_init();
     while (1) {
         spaceship_logic(keypad_getkey());
-        // enemy_logic();
-        // spaceship_collision();
+        spaceship_collision();
         delay_ms(100);
         render_game();
     }
