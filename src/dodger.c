@@ -54,20 +54,20 @@ void init_game()
     portal_p.pos_y = 15;
 
     // Enemy Ships
-    e_ship1.pos_x = 75;
+    e_ship1.pos_x = 64;
     e_ship1.pos_y = 10;
 
-    e_ship2.pos_x = 68;
+    e_ship2.pos_x = 58;
     e_ship2.pos_y = 15;
 
-    e_ship3.pos_x = 75;
+    e_ship3.pos_x = 70;
     e_ship3.pos_y = 20;
 
-    e_ship4.pos_x = 42;
-    e_ship4.pos_y = 15;
+    e_ship4.pos_x = 76;
+    e_ship4.pos_y = 13;
 
-    e_ship5.pos_x = 27;
-    e_ship5.pos_y = 12;
+    e_ship5.pos_x = 52;
+    e_ship5.pos_y = 18;
 
     enemy_ships[0] = e_ship1;
     enemy_ships[1] = e_ship2;
@@ -99,10 +99,16 @@ void init_portal()
 void render_hud()
 {
     set_color(BRIGHT_WHITE, BLACK);
-    set_cursor(3, 8);
-    puts("Lives: ");
     set_cursor(1, 34);
     puts("Space Dodger");
+    set_cursor(3, 8);
+    puts("Lives: ");
+    for (uint8_t i = 1; i <= lives; i++)
+    {
+        set_color(YELLOW, BLACK);
+        put_char(3);
+        put_char(' ');
+    }
 }
 
 void render_level()
@@ -167,7 +173,7 @@ void spaceship_collision()
 {
     uint8_t ship_posx = ship.pos_x;
     uint8_t ship_posy = ship.pos_y;
-    for(uint8_t i = 0; i < 3; i++){
+    for(uint8_t i = 0; i < 5; i++){
         if(ship_posy == enemy_ships[i].pos_y){
             if(ship_posx <= enemy_ships[i].pos_x && ship_posx+1 >= enemy_ships[i].pos_x){
                 ship.pos_x = 4;
@@ -181,6 +187,20 @@ void spaceship_collision()
 void render_flank_enemies(enemy_ship *e)
 {
     set_color(LIGHT_RED, BLACK);
+
+    set_cursor(e->pos_y, e->pos_x);
+    put_char(225);
+    put_char(226);
+    put_char(227);
+    set_cursor(e->pos_y + 1, e->pos_x);
+    put_char(228);
+    put_char(229);
+    put_char(230);
+}
+
+void render_flank_enemies2(enemy_ship *e)
+{
+    set_color(LIGHT_GREEN, BLACK);
 
     set_cursor(e->pos_y, e->pos_x);
     put_char(225);
@@ -208,17 +228,18 @@ void render_central_enemy(enemy_ship *e)
 
 void enemies_logic()
 {
-    uint8_t e1_x;
-    uint8_t e2_x;
-    uint8_t e3_x;
+    uint8_t e1_x, e2_x, e3_x, e4_x, e5_x;
 
     e1_x = enemy_ships[0].pos_x;
     e2_x = enemy_ships[1].pos_x;
     e3_x = enemy_ships[2].pos_x;
+    e4_x = enemy_ships[3].pos_x;
+    e5_x = enemy_ships[4].pos_x;
 
     // Enemy ship 1
     if (e1_x > 1)
     {
+        enemy_ships[0].pos_x--;
         enemy_ships[0].pos_x--;
     } else if (e1_x <= 1)
     {
@@ -228,7 +249,6 @@ void enemies_logic()
     // Enemy ship 2
     if (e2_x > 1)
     {
-        enemy_ships[1].pos_x--;
         enemy_ships[1].pos_x--;
         enemy_ships[1].pos_x--;
     } else if (e2_x <= 1)
@@ -244,6 +264,26 @@ void enemies_logic()
     } else if (e3_x <= 1)
     {
         enemy_ships[2].pos_x = 79;
+    }
+
+    // Enemy ship 4
+    if (e4_x > 1)
+    {
+        enemy_ships[3].pos_x--;
+        enemy_ships[3].pos_x--;
+    } else if (e4_x <= 1)
+    {        
+        enemy_ships[3].pos_x = 73;
+    }
+
+    // Enemy ship 5
+    if (e5_x > 1)
+    {
+        enemy_ships[4].pos_x--;
+        enemy_ships[4].pos_x--;
+    } else if (e5_x <= 1)
+    {        
+        enemy_ships[4].pos_x = 73;
     }
     
 }
@@ -306,8 +346,10 @@ void render_game()
         render_level();
         render_spaceship();
         render_flank_enemies(&enemy_ships[0]);
-        render_central_enemy(&enemy_ships[1]);
         render_flank_enemies(&enemy_ships[2]);
+        render_central_enemy(&enemy_ships[1]);
+        render_flank_enemies2(&enemy_ships[3]);
+        render_flank_enemies2(&enemy_ships[4]);
         enemies_logic();
         portal_countdown--;
     }
