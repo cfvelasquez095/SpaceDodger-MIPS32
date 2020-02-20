@@ -26,6 +26,7 @@ struct enemy_ship e_ship1, e_ship2, e_ship2, e_ship3, e_ship4, e_ship5;
 uint8_t current_row, current_col;
 int lives, portal_countdown;
 
+void init_game_c();
 void init_game();
 void init_portal();
 void render_hud();
@@ -38,12 +39,13 @@ void render_central_enemy(enemy_ship *e);
 void enemies_logic();
 void winning_transition(uint8_t key);
 void gameover();
+void render_game_c();
 void render_game();
 
-void init_game()
+void init_game_c()
 {
     lives = 3;
-    portal_countdown = 300;
+    portal_countdown = 100;
 
     // Player Spaceship
     ship.pos_x = 4;
@@ -334,7 +336,7 @@ void gameover()
     }
 }
 
-void render_game()
+void render_game_c()
 {
     if(lives == 0 && portal_countdown != 0){
         gameover();
