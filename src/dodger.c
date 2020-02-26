@@ -26,7 +26,6 @@ struct enemy_ship e_ship1, e_ship2, e_ship2, e_ship3, e_ship4, e_ship5;
 uint8_t current_row, current_col;
 int lives, portal_countdown;
 
-void init_game_c();
 void init_game();
 void init_portal();
 void render_hud();
@@ -39,44 +38,7 @@ void render_central_enemy(enemy_ship *e);
 void enemies_logic();
 void winning_transition(uint8_t key);
 void gameover();
-void render_game_c();
 void render_game();
-
-void init_game_c()
-{
-    lives = 3;
-    portal_countdown = 100;
-
-    // Player Spaceship
-    ship.pos_x = 4;
-    ship.pos_y = 15;
-
-    // Portal
-    portal_p.pos_x = 40;
-    portal_p.pos_y = 15;
-
-    // Enemy Ships
-    e_ship1.pos_x = 64;
-    e_ship1.pos_y = 10;
-
-    e_ship2.pos_x = 58;
-    e_ship2.pos_y = 15;
-
-    e_ship3.pos_x = 70;
-    e_ship3.pos_y = 20;
-
-    e_ship4.pos_x = 76;
-    e_ship4.pos_y = 13;
-
-    e_ship5.pos_x = 52;
-    e_ship5.pos_y = 18;
-
-    enemy_ships[0] = e_ship1;
-    enemy_ships[1] = e_ship2;
-    enemy_ships[2] = e_ship3;
-    enemy_ships[3] = e_ship4;
-    enemy_ships[4] = e_ship5;
-}
 
 void init_portal()
 {
@@ -333,26 +295,5 @@ void gameover()
         ship.pos_x = 4;
         ship.pos_y = 15;
         lives += 3;
-    }
-}
-
-void render_game_c()
-{
-    if(lives == 0 && portal_countdown != 0){
-        gameover();
-    }else if(portal_countdown == 0){
-        winning_transition(keypad_getkey());
-    }else{
-        clear_screen();
-        render_hud();
-        render_level();
-        render_spaceship();
-        render_flank_enemies(&enemy_ships[0]);
-        render_flank_enemies(&enemy_ships[2]);
-        render_central_enemy(&enemy_ships[1]);
-        render_flank_enemies2(&enemy_ships[3]);
-        render_flank_enemies2(&enemy_ships[4]);
-        enemies_logic();
-        portal_countdown--;
     }
 }
