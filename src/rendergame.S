@@ -21,6 +21,7 @@ render_game:
     addi	$sp, $sp, -4
     sw		$ra, 0($sp)   
 
+    move    $a0, $zero
     la		$s0, enemy_ships            # load the address for enemy_ships[]
     lw		$s1, lives                  # load player's lives into $s1
     lw		$s2, portal_countdown       # load portal_countdown into $s2
@@ -33,9 +34,8 @@ check_lives:                            # if( lives == 0 && portal_countdown != 
     jr		$ra
 check_portal:
     bne		$s2, $zero, else_render     # if portal_countdown != 0 then keep playing
-    move    $v0, $zero
-    jal     keypad_getkey               # load keypad_getkey return value into $a0
-    move    $a0, $v0
+    move    $a0, $zero
+    la		$a0, keypad_getkey          # load the address for function keypad_getkey() as a param
     jal		winning_transition          # jump to winning_transition and save position to $ra
     lw		$ra , 0($sp)
     addi	$sp, $sp, 4
