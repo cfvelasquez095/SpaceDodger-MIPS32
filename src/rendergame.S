@@ -5,7 +5,6 @@
 .extern keypad_getkey
 .extern clear_screen
 .extern render_hud
-.extern render_level
 .extern render_spaceship
 .extern render_central_enemy
 .extern render_flank_enemies
@@ -21,10 +20,10 @@ render_game:
     addi	$sp, $sp, -4
     sw		$ra, 0($sp)   
 
-    move    $a0, $zero
     la		$s0, enemy_ships            # load the address for enemy_ships[]
     lw		$s1, lives                  # load player's lives into $s1
-    lw		$s2, portal_countdown       # load portal_countdown into $s2
+    la		$s2, portal_countdown       # load portal_countdown into $s2
+    lw      $t2, 0($s2)
 check_lives:                            # if( lives == 0 && portal_countdown != 0 )
     bne		$s1, $zero, check_portal	# if lives != 0
     jal		gameover                    # jump to gameover and save position to $ra
@@ -46,7 +45,6 @@ else_render:
     jal     render_hud                  # jump to render_hud and save position to $ra
     jal     render_level                # jump to render_level and save position to $ra
     jal     render_spaceship            # jump to render_spaceship and save position to $ra
-
 
     addi	$a0, $s0, 0                 # $a0 = enemy_ships[0]
     jal		render_flank_enemies        # jump to render_flank_enemies and save position to $ra
@@ -70,8 +68,8 @@ else_render:
 
     jal     enemies_logic               # jump to enemies_logic and save position to $ra
 
-    addi    $s2, $s2, -1                # portal_countdown--
-
+    addi    $t2, $t2, -1                # portal_countdown--
+    sw      $t2, 0($s2)
     lw		$ra , 0($sp)
     addi	$sp, $sp, 4
 
