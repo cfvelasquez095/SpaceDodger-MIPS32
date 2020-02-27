@@ -75,27 +75,6 @@ void render_hud()
     }
 }
 
-void render_level()
-{
-    set_color(MAGENTA, BLACK);
-    current_row = 6;
-    current_col = 1;
-    set_cursor(current_row, current_col);
-
-    for (uint8_t i = current_col; i < 79; i++)
-    {
-        put_char(176);
-    }
-
-    current_row = 25;
-    set_cursor(current_row, current_col);
-    
-    for (uint8_t i = current_col; i < 79; i++)
-    {
-        put_char(176);
-    }
-}
-
 void render_spaceship()
 {
     set_color(CYAN, BLACK);
