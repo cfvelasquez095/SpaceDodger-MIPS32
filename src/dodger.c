@@ -55,22 +55,6 @@ void render_hud()
     }
 }
 
-void render_spaceship()
-{
-    set_color(CYAN, BLACK);
-    uint8_t ship_col = ship.pos_x;
-    uint8_t ship_row = ship.pos_y;
-
-    set_cursor(ship_row, ship_col);
-    put_char(219);
-    put_char(220);
-    put_char(221);
-    set_cursor(ship_row + 1, ship_col);
-    put_char(222);
-    put_char(223);
-    put_char(224);
-}
-
 void spaceship_logic(uint8_t key)
 {
 switch (key)
