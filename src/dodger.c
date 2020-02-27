@@ -40,26 +40,6 @@ void winning_transition(uint8_t key);
 void gameover();
 void render_game();
 
-void init_portal()
-{
-    set_color(LIGHT_BLUE, BLACK);
-    uint8_t portal_col = portal_p.pos_x;
-    uint8_t portal_row = portal_p.pos_y;
-
-    set_cursor(portal_row, portal_col);
-    put_char(239);
-    put_char(240);
-    put_char(241);
-    set_cursor(portal_row + 1, portal_col);
-    put_char(242);
-    put_char(243);
-    put_char(244);
-    set_cursor(portal_row + 2, portal_col);
-    put_char(245);
-    put_char(246);
-    put_char(247);
-}
-
 void render_hud()
 {
     set_color(BRIGHT_WHITE, BLACK);
