@@ -1,6 +1,6 @@
 TARGET=space_dodger.elf
 C_SOURCES=main.c dodger.c
-ASM_SOURCES=start.S initgame.S rendergame.S
+ASM_SOURCES=start.S initgame.S rendergame.S renderlevel.S
 ASM_OUTPUT=$(TARGET).s
 ASMGEN_SOURCES=$(C_SOURCES:.c=.S)
 OBJ_FILES=$(ASM_SOURCES:.S=.o) $(ASMGEN_SOURCES:.S=.o) ../lib/libtinymips.a
