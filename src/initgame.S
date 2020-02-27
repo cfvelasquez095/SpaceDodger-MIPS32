@@ -1,5 +1,4 @@
 .globl init_game
-.extern init_game_c
 
 .extern lives
 .extern portal_countdown
