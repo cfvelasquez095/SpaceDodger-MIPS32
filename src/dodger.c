@@ -119,20 +119,6 @@ void render_flank_enemies2(enemy_ship *e)
     put_char(230);
 }
 
-void render_central_enemy(enemy_ship *e)
-{
-    set_color(YELLOW, BLACK);
-
-    set_cursor(e->pos_y, e->pos_x);
-    put_char(232);
-    put_char(233);
-    put_char(234);
-    set_cursor(e->pos_y + 1, e->pos_x);
-    put_char(235);
-    put_char(236);
-    put_char(237);
-}
-
 void enemies_logic()
 {
     uint8_t e1_x, e2_x, e3_x, e4_x, e5_x;
