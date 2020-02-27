@@ -5,8 +5,6 @@
 .extern keypad_getkey
 .extern clear_screen
 .extern render_hud
-.extern render_spaceship
-.extern render_central_enemy
 .extern render_flank_enemies
 .extern render_flank_enemies2
 .extern enemies_logic
