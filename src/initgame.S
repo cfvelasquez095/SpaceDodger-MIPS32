@@ -19,14 +19,12 @@ init_game:
     sw		$ra, 0($sp)
 
     la      $s0, lives              # load player's lives in $s0
-    move    $t0, $zero
-    addi    $t0, 3
-    sw      $t0, 0($s0)             # initialize lives in 3
+    li      $s1, 3
+    sw      $s1, 0($s0)             # initialize lives in 3
 
-    la      $s0, portal_countdown   # load portal's countdown in $s0
-    move    $t0, $zero
-    addi    $t0, 100
-    sw      $t0, 0($s0)             # initialize the portal's cd in 300
+    la      $s2, portal_countdown   # load portal's countdown in $s0
+    li      $s3, 100
+    sw      $s3, 0($s2)             # initialize the portal's cd in 300
 
     la      $s1, enemy_ships        # load the address for enemy_ships[]
 
@@ -95,6 +93,12 @@ init_game:
     addi    $t0, 18
     sb      $t0, 1($s0)             # e_ship5.pos_y = 18
     sb      $t0, 9($s1)             # enemy_ships[4] = e_ship5;
+
+    move    $s0, $zero
+    move    $s1, $zero
+    move    $s2, $zero
+    move    $s3, $zero
+    move    $s5, $zero
 
     lw		$ra , 0($sp)
     addi	$sp, $sp, 4
